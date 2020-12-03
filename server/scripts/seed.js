@@ -4,7 +4,7 @@ const urls = require("./urls.js")
 
 const db = mysql.createConnection({
   user: "root",
-  password: "monkey11",
+  password: "    ",
   database: "questionsAndAnswers"
 })
 

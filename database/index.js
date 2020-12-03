@@ -3,7 +3,7 @@ const date = require("./convertToMonth.js");
 
 const db = mysql.createConnection({
   user: "root",
-  password: "monkey11",
+  password: "    ",
   database: "questionsAndAnswers"
 })
 
@@ -47,7 +47,7 @@ module.exports = {
           if (err) {
             callback(err, null);
           } else {
-            callback(null, "Success!");
+            callback(null, "Successfully posted question");
           }
         })
       } else {
@@ -59,7 +59,7 @@ module.exports = {
               if (err) {
                 callback(err, null);
               } else {
-                callback(null, "Success!");
+                callback(null, "Successfully added user and posted question");
               }
             })
           }

@@ -57,6 +57,7 @@ app.get("/api/trips/questionsAndAnswers/answers", (req, res) => {
         }
       }
       newResult.mostVoted = mostVoted;
+      console.log(newResult)
       res.send(newResult);
     }
   })
@@ -77,7 +78,7 @@ app.post("/api/trips/questionsAndAnswers/addAnswer", (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log("Success");
+      console.log("Successfully added an answer");
     }
   })
 })
@@ -87,7 +88,7 @@ app.put("/api/trips/questionsAndAnswers/addVote", (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.send("Success");
+      res.send("Successfully up-voted");
     }
   })
 })
@@ -97,7 +98,7 @@ app.put("/api/trips/questionsAndAnswers/subtractVote", (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.send("Success");
+      res.send("Successfully down-voted");
     }
   })
 })
