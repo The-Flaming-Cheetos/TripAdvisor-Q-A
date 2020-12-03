@@ -61,7 +61,7 @@ None
 
 ### Returns
 
-Returns the flag details.
+Returns a success message
 
 ```javascript
 'Successfully up-voted'
