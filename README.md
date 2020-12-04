@@ -2,7 +2,7 @@
 
 Users are able to ask questions regarding the attraction
 
-```POST /api/trips/questionsAndAnswers/add```
+```POST /api/:attractionId/questionsAndAnswers/question```
 
 ### Parameters
 
@@ -29,7 +29,7 @@ or
 
 Users are able to answer any existing questions
 
-```/api/trips/questionsAndAnswers/addAnswer```
+```/api/:attractionId/questionsAndAnswers/:questionId/answers```
 
 ### Parameters
 
@@ -52,8 +52,8 @@ Returns a success message
 
 Users are able to up-vote/down-vote answers.
 
-```PUT /api/trips/questionsAndAnswers/addVote```
-```PUT /api/trips/questionsAndAnswers/subtractVote```
+```PUT /api/:attractionId/questionsAndAnswers/:questionId/upVote```
+```PUT /api/:attractionId/questionsAndAnswers/:questionId/downVote```
 
 ### Parameters
 
@@ -80,8 +80,8 @@ or
 
 Question and Answers are uploaded once the page is refreshed
 
-```GET /api/trips/questionsAndAnswers/questions```
-```GET /api/trips/questionsAndAnswers/answers```
+```GET /api/:attractionId/questionsAndAnswers/questions```
+```GET /api/:attractionId/questionsAndAnswers/questions/answers```
 
 ### Parameters
 
