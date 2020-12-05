@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "mysql -u root -p < server/schema.sql && node ./server/scripts/seed.js",
+    "seed": "mysql -u root -p < database/schema.sql && node ./database/seed.js",
     "start": "nodemon server/index.js",
     "build": "webpack --watch",
     "test": "jest",
