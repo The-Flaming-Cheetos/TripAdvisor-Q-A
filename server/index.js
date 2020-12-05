@@ -12,8 +12,7 @@ app.use(cors());
 //   res.sendFile("../client/dist/bundle.js");
 // })
 
-app.get("/api/trips/questionsAndAnswers/count", (req, res) => {
-  console.log(req.body);
+app.get("/api/:attractionId/questions/count", (req, res) => {
   db.getQuestionCount((err, result) => {
     if (err) {
       res.send("Oh no!")
@@ -32,7 +31,7 @@ app.get("/api/trips/questionsAndAnswers/count", (req, res) => {
   })
 })
 
-app.get("/api/trips/questionsAndAnswers/questions", (req, res) => {
+app.get("/api/:attractionId/questionsAndAnswers/questions", (req, res) => {
   db.getFilteredQuestions(req.query.start, req.query.end, (err, result) => {
     if (err) {
       res.send(err)
@@ -42,9 +41,11 @@ app.get("/api/trips/questionsAndAnswers/questions", (req, res) => {
   })
 })
 
-app.get("/api/trips/questionsAndAnswers/answers", (req, res) => {
-  db.getAnswers(req.query.questionID, (err, result) => {
+app.get("/api/:attractionId/questionsAndAnswers/:questionId/answers", (req, res) => {
+  let questionId = req.params.questionId
+  db.getAnswers(questionId, (err, result) => {
     if (err) {
+      console.error(err)
       res.send("No answers for this question!")
     } else {
       var newResult = {};
@@ -57,14 +58,14 @@ app.get("/api/trips/questionsAndAnswers/answers", (req, res) => {
         }
       }
       newResult.mostVoted = mostVoted;
-      console.log(newResult)
       res.send(newResult);
     }
   })
 })
 
-app.post("/api/trips/questionsAndAnswers/add", (req, res) => {
-  db.insertNewQuestion(req.body, (err, result) => {
+app.post("/api/:attractionId/questionsAndAnswers/question", (req, res) => {
+  let attractionId = req.params.attractionId
+  db.insertNewQuestion(attractionId, req.body, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -73,8 +74,9 @@ app.post("/api/trips/questionsAndAnswers/add", (req, res) => {
   })
 })
 
-app.post("/api/trips/questionsAndAnswers/addAnswer", (req, res) => {
-  db.insertNewAnswer(req.body, (err, result) => {
+app.post("/api/:attractionId/questionsAndAnswers/:questionId/answers", (req, res) => {
+  let questionId = req.params.questionId
+  db.insertNewAnswer(questionId, req.body, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -83,8 +85,9 @@ app.post("/api/trips/questionsAndAnswers/addAnswer", (req, res) => {
   })
 })
 
-app.put("/api/trips/questionsAndAnswers/addVote", (req, res) => {
-  db.addVote(req.body.answerID, (err, result) => {
+app.put("/api/:attractionId/questionsAndAnswers/:answerId/upVote", (req, res) => {
+  let answerId = req.params.answerId
+  db.addVote(answerId, (err, result) => {
     if (err) {
       res.send(err);
     } else {
@@ -93,8 +96,9 @@ app.put("/api/trips/questionsAndAnswers/addVote", (req, res) => {
   })
 })
 
-app.put("/api/trips/questionsAndAnswers/subtractVote", (req, res) => {
-  db.subtractVote(req.body.answerID, (err, result) => {
+app.put("/api/:attractionId/questionsAndAnswers/:answerId/downVote", (req, res) => {
+  let answerId = req.params.answerId
+  db.subtractVote(answerId, (err, result) => {
     if (err) {
       res.send(err);
     } else {

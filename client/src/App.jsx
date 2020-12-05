@@ -144,7 +144,7 @@ class App extends React.Component {
   // Insert Methods
 
   addQuestion() {
-    axios.post("/api/trips/questionsAndAnswers/add", {
+    axios.post("/api/1/questionsAndAnswers/question", {
       question: this.state.questionToInsert,
       username: "albertollini",
       location: "San Francisco, CA",
@@ -165,9 +165,8 @@ class App extends React.Component {
   }
 
   addAnswer(event) {
-    axios.post("/api/trips/questionsAndAnswers/addAnswer", {
+    axios.post(`/api/1/questionsAndAnswers/${event.target.name}/answers`, {
       answer: this.state.answerToInsert,
-      questionID: event.target.name,
       username: "albertollini",
       location: "San Francisco, CA",
       profilePic: "https://artists.ultramusicfestival.com/wp-content/uploads/2018/05/illenium-2019.jpg",
@@ -193,16 +192,12 @@ class App extends React.Component {
 
   changeVote(event) {
     if (event.target.id === "increase") {
-      axios.put("/api/trips/questionsAndAnswers/addVote", {
-        answerID: event.target.name
-      })
+      axios.put(`/api/1/questionsAndAnswers/${event.target.name}/upVote`)
       .then((result) => {
         this.getQuestionsAndAnswers(this.state.currentPage);
       })
     } else {
-      axios.put("/api/trips/questionsAndAnswers/subtractVote", {
-        answerID: event.target.name
-      })
+      axios.put(`/api/1/questionsAndAnswers/${event.target.name}/downVote`)
       .then((result) => {
         this.getQuestionsAndAnswers(this.state.currentPage);
       })
@@ -276,7 +271,7 @@ class App extends React.Component {
     } else {
       var idStartPoint = this.state.currentPage;
     }
-    axios.get("/api/trips/questionsAndAnswers/questions", {
+    axios.get("/api/1/questionsAndAnswers/questions", {
       params: {
         start: idStartPoint,
         end: idStartPoint + (this.state.pageLimit - 1),
@@ -287,22 +282,18 @@ class App extends React.Component {
         questions: result.data,
       })
       for (var i = 0; i < this.state.questions.length; i++) {
-        axios.get("/api/trips/questionsAndAnswers/answers", {
-          params: {
-            questionID: this.state.questions[i].id
-          }
-        })
+        axios.get(`/api/1/questionsAndAnswers/${this.state.questions[i].id}/answers`)
         .then((result) => {
           var newAnswers = this.state.answers;
-          newAnswers[result.data.answers[0].questionsID] = result.data.answers;
+          newAnswers[result.data.answers[0].questionsid] = result.data.answers;
           var mostVotedObject = this.state.mostVoted;
-          mostVotedObject[result.data.answers[0].questionsID] = result.data.mostVoted
+          mostVotedObject[result.data.answers[0].questionsid] = result.data.mostVoted
           var showFollowObject = this.state.showFollow;
-          showFollowObject[result.data.answers[0].questionsID] = false;
+          showFollowObject[result.data.answers[0].questionsid] = false;
           var showAnswerModalObject = this.state.showAnswerModal;
-          showAnswerModalObject[result.data.answers[0].questionsID] = false;
+          showAnswerModalObject[result.data.answers[0].questionsid] = false;
           var showAllObject = this.state.showAllAnswers;
-          showAllObject[result.data.answers[0].questionsID] = false;
+          showAllObject[result.data.answers[0].questionsid] = false;
           this.setState({
             answers: newAnswers,
             mostVoted: mostVotedObject,
@@ -316,7 +307,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get("/api/trips/questionsAndAnswers/count")
+    axios.get("/api/1/questions/count")
     .then((result) => {
       this.setState({
         pages: result.data.pages,
