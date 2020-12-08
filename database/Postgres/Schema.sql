@@ -26,16 +26,16 @@ CREATE TABLE users (
 
 CREATE TABLE questions (
   id SERIAL PRIMARY KEY,
-  userID smallint REFERENCES users,
+  userID integer REFERENCES users,
   text VARCHAR(2000),
   date VARCHAR(100),
-  attractionID smallint REFERENCES attractions
+  attractionID integer REFERENCES attractions
 );
 
 CREATE TABLE answers (
   id SERIAL PRIMARY KEY,
-  questionsID smallint REFERENCES questions,
-  userID smallint REFERENCES users,
+  questionsID integer REFERENCES questions,
+  userID integer REFERENCES users,
   text VARCHAR(2000),
   votes smallint,
   voted boolean,
