@@ -23,5 +23,6 @@ coverage
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 
-database/seeding/Postgres/csvData
+database/Postgres/csvData
+database/Neo4j/csvData
 

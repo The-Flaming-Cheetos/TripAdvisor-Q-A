@@ -1,13 +1,5 @@
-const { Pool } = require('pg');
 const date = require('./convertToMonth.js');
-
-
-  const pool = new Pool({
-    user: 'jasperchen',
-    host: 'localhost',
-    database: 'qanda',
-    port: 5432
-  })
+const pool = require('./index.js')
 
 module.exports = {
   getQuestionCount: (callback) => {

@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "seed": "mysql -u root -p < database/schema.sql && node ./database/seed.js",
+    "seed": "psql postgres < database/Postgres/schema.sql",
     "start": "nodemon server/index.js",
     "build": "webpack --watch",
     "test": "jest",

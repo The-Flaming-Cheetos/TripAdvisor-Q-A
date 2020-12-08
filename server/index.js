@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const db = require('../database/index.js');
+const db = require('../database/Postgres/model.js');
 const port = 3200;
 const cors = require('cors')
 
@@ -8,9 +8,6 @@ app.use(express.static("client/dist"));
 app.use(express.json());
 app.use(cors());
 
-// app.get("/api/trips/questionsAndAnswers", (req, res) => {
-//   res.sendFile("../client/dist/bundle.js");
-// })
 
 app.get("/api/:attractionId/questions/count", (req, res) => {
   db.getQuestionCount((err, result) => {
