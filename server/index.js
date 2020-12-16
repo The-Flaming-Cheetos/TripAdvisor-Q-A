@@ -1,3 +1,4 @@
+const newrelic = require('newrelic');
 const express = require('express');
 const app = express();
 const db = require('../database/Postgres/model.js');
@@ -100,6 +101,17 @@ app.put("/api/:attractionId/questionsAndAnswers/:answerId/downVote", (req, res) 
       res.send(err);
     } else {
       res.send("Successfully down-voted");
+    }
+  })
+})
+
+app.get("/api/:attractionId/questionsAndAnswers/:questionId", (req, res) => {
+  let questionId = req.params.questionId
+  db.getQuestions(questionId, (err, result) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(result)
     }
   })
 })
