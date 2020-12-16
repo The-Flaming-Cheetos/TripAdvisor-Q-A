@@ -117,5 +117,14 @@ module.exports = {
         callback(null, 'Already voted for this answer!')
       }
     })
+  },
+  getQuestions: (questionId, callback) => {
+    pool.query(`SELECT * FROM questions WHERE id=${questionId}`, (err, result) => {
+      if (err) {
+        callback(err, null)
+      } else {
+        callback(null, result.rows)
+      }
+    })
   }
 }
